@@ -5,3 +5,7 @@
 fieldset {
     display: none;
 }
+
+#playAgain {
+    display:none;
+}

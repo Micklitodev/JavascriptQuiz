@@ -27,8 +27,6 @@ document.body.appendChild(lossElement);
 let winElement = document.createElement("div");
 document.body.appendChild(winElement);
 let startElement = document.getElementById("start");
-let formElement = document.createElement("form");
-document.body.appendChild(formElement);
 let choicesElement = document.createElement("div");
 document.body.appendChild(choicesElement);
 let scoreElement = document.createElement('div'); 
@@ -47,11 +45,13 @@ function startGame() {
 document.getElementById("fieldset").style.cssText = 'display: block;';
 }
 
+
+
 function timer() {
   if (timerCounter <= 0 ) {
   timerCounter = 30;
   let timerInterval = setInterval(function () {
-    timerElement.textContent = timerCounter;
+    timerElement.textContent = `TIME LEFT: ${timerCounter}`;
     if (timerCounter === 0 || questionQuantity <= 0) {
       clearInterval(timerInterval);
       makeDescision()
@@ -90,18 +90,19 @@ function questionOne() {
 
   function q1c1() {
     timerCounter = timerCounter - 10;
-    questionQuantity = questionQuantity - 1;
+    questionQuantity-- ;
     questionTwo();
+    
   }
 
   function q1c2() {
     timerCounter = timerCounter - 10;
-    questionQuantity = questionQuantity - 1;
+    questionQuantity-- ;
     questionTwo();
   }
 
   function q1c3() {
-    questionQuantity = questionQuantity - 1;
+    questionQuantity-- ;
     questionTwo();
   }
 };
@@ -125,31 +126,31 @@ function questionTwo() {
   choice3.addEventListener("click", q2c3);
 
   function q2c1() {
-    questionQuantity = questionQuantity - 1;
+    questionQuantity-- ;
     timerCounter = timerCounter - 10;
-    questionThree();
+    // questionThree();
   }
 
   function q2c2() {
-    questionQuantity = questionQuantity - 1;
+    questionQuantity-- ;
     handleWin();
   }
 
   function q2c3() {
-    questionQuantity = questionQuantity - 1;
+    questionQuantity-- ;
     timerCounter = timerCounter - 10;
-    questionThree();
+    // questionThree();
   }
 }
 
 function handleLoss() {
-  lossCount = lossCount + 1;
+  lossCount++
   localStorage.setItem("loss", lossCount);
   renderWinsAndLosses();
 }
 
 function handleWin() {
-  winCount = winCount + 1;
+  winCount++
   higherScore();
   localStorage.setItem("win", winCount);
 } 
@@ -163,14 +164,16 @@ function higherScore() {
 }
 
 function playAgain() {
+  document.getElementById("fieldset").style.cssText = 'display: none;';
+  playOnceMore = document.getElementById('playAgain')
+  playOnceMore.style.cssText = 'display: block;'
+  playOnceMore.addEventListener("click", replay);
 
-  let restart = document.createElement("button");
-  restart.textContent = "play again";
-  document.body.appendChild(restart);
-  restart.addEventListener("click", replay);
 }
 
 function replay() {
+  timerCounter = 0;
+  questionQuantity = 2;
   startGame();
 }
 
