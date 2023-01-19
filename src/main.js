@@ -1,7 +1,7 @@
 let timerCounter = 0;
 let winCount = 0;
 let lossCount = 0;
-let questionQuantity = 1;
+let questionQuantity = 2;
 let question = "";
 let choices = "";
 
@@ -31,6 +31,9 @@ let formElement = document.createElement("form");
 document.body.appendChild(formElement);
 let choicesElement = document.createElement("div");
 document.body.appendChild(choicesElement);
+let scoreElement = document.createElement('div'); 
+document.body.appendChild(scoreElement);
+
 
 
 let choice1Label = document.querySelector('label[for="choiceOne"]');
@@ -48,15 +51,23 @@ function timer() {
   timerCounter = 30;
   let timerInterval = setInterval(function () {
     timerElement.textContent = timerCounter;
-    if (timerCounter === 0) {
+    if (timerCounter === 0 || questionQuantity === 0) {
       clearInterval(timerInterval);
       timerElement.textContent = "";
-      handleLoss();
+      makeDescision()
     } else if (timerCounter > 0) {
       timerCounter--;
     }
   }, 1000);
   questionOne();} else { return }
+}
+
+function makeDescision() {
+  if (questionQuantity == 0 && timerCounter > 0) {
+    handleWin()
+  } else if (questionQuantity > 0 && timerCounter <= 0) {
+    handleLoss()
+  }
 }
 
 function questionOne() {
@@ -139,8 +150,16 @@ function handleLoss() {
 
 function handleWin() {
   winCount = winCount + 1;
+  higherScore();
   localStorage.setItem("win", winCount);
-  renderWinsAndLosses();
+} 
+
+function higherScore() {
+  let currentScore = localStorage.getItem("score")
+  if (timerCounter > currentScore) {
+    localStorage.setItem("score", timerCounter)
+    renderWinsAndLosses()
+  } else {renderWinsAndLosses()}
 }
 
 function playAgain() {
@@ -158,5 +177,6 @@ function replay() {
 function renderWinsAndLosses() {
   lossElement.textContent = ` Losses: ${localStorage.getItem("loss")}`;
   winElement.textContent = `Wins: ${localStorage.getItem("win")}`;
+  scoreElement.textContent = `HighScore: ${localStorage.getItem("score")}`;
   playAgain();
 }
