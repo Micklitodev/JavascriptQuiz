@@ -44,6 +44,7 @@ startElement.addEventListener("click", startGame);
 
 function startGame() {
   timer();
+document.getElementById("fieldset").style.cssText = 'display: block;';
 }
 
 function timer() {
@@ -51,9 +52,8 @@ function timer() {
   timerCounter = 30;
   let timerInterval = setInterval(function () {
     timerElement.textContent = timerCounter;
-    if (timerCounter === 0 || questionQuantity === 0) {
+    if (timerCounter === 0 || questionQuantity <= 0) {
       clearInterval(timerInterval);
-      timerElement.textContent = "";
       makeDescision()
     } else if (timerCounter > 0) {
       timerCounter--;
