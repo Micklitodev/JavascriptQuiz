@@ -32,6 +32,11 @@ document.body.appendChild(formElement);
 let choicesElement = document.createElement("div");
 document.body.appendChild(choicesElement);
 
+
+let choice1Label = document.querySelector('label[for="choiceOne"]');
+let choice2Label = document.querySelector('label[for="choiceTwo"]');
+let choice3Label = document.querySelector('label[for="choiceThree"]');
+
 startElement.addEventListener("click", startGame);
 
 function startGame() {
@@ -39,6 +44,7 @@ function startGame() {
 }
 
 function timer() {
+  if (timerCounter <= 0 ) {
   timerCounter = 30;
   let timerInterval = setInterval(function () {
     timerElement.textContent = timerCounter;
@@ -50,7 +56,7 @@ function timer() {
       timerCounter--;
     }
   }, 1000);
-  questionOne();
+  questionOne();} else { return }
 }
 
 function questionOne() {
@@ -63,9 +69,9 @@ function questionOne() {
   choice2Label.textContent = myQuestions[0].choices[1];
   choice3Label.textContent = myQuestions[0].choices[2];
 
-  let choice1 = document.getElementById("choiceOne");
-  let choice2 = document.getElementById("choiceTwo");
-  let choice3 = document.getElementById("choiceThree");
+  let choice1 = document.getElementById("choiceOne") ;
+  let choice2 = document.getElementById("choiceTwo") ;
+  let choice3 = document.getElementById("choiceThree") ;
 
   choice1.addEventListener("click", q1c1);
   choice2.addEventListener("click", q1c2);
@@ -76,20 +82,18 @@ function questionOne() {
     questionQuantity = questionQuantity - 1;
     questionTwo();
   }
-  
+
   function q1c2() {
     timerCounter = timerCounter - 10;
     questionQuantity = questionQuantity - 1;
     questionTwo();
   }
-  
+
   function q1c3() {
     questionQuantity = questionQuantity - 1;
     questionTwo();
   }
-  
-}
-
+};
 
 function questionTwo() {
   questionElement.textContent = JSON.stringify(myQuestions[1].question);
@@ -114,12 +118,12 @@ function questionTwo() {
     timerCounter = timerCounter - 10;
     questionThree();
   }
-  
+
   function q2c2() {
     questionQuantity = questionQuantity - 1;
-    handleWin()
+    handleWin();
   }
-  
+
   function q2c3() {
     questionQuantity = questionQuantity - 1;
     timerCounter = timerCounter - 10;
@@ -127,34 +131,32 @@ function questionTwo() {
   }
 }
 
-
 function handleLoss() {
   lossCount = lossCount + 1;
   localStorage.setItem("loss", lossCount);
-  renderWinsAndLosses()
+  renderWinsAndLosses();
 }
 
 function handleWin() {
   winCount = winCount + 1;
   localStorage.setItem("win", winCount);
-  renderWinsAndLosses()
+  renderWinsAndLosses();
 }
 
 function playAgain() {
-    let restart = document.createElement('button')
-    restart.textContent = 'play again'
-    document.body.appendChild(restart)
-    restart.addEventListener('click', replay)
+
+  let restart = document.createElement("button");
+  restart.textContent = "play again";
+  document.body.appendChild(restart);
+  restart.addEventListener("click", replay);
 }
 
 function replay() {
-    startGame()
-     
+  startGame();
 }
-
 
 function renderWinsAndLosses() {
   lossElement.textContent = ` Losses: ${localStorage.getItem("loss")}`;
   winElement.textContent = `Wins: ${localStorage.getItem("win")}`;
-  playAgain()
+  playAgain();
 }
