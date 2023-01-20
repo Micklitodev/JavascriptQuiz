@@ -27,7 +27,7 @@ let myQuestions = [
   // }
 ];
 
-let questionElement = document.createElement("h1");
+let questionElement = document.createElement("h2");
 document.body.appendChild(questionElement);
 let timerElement = document.createElement("div");
 document.body.appendChild(timerElement);
@@ -66,6 +66,10 @@ function timer() {
     } else if (timerCounter > 0) {
       timerCounter--;
       document.getElementById("fieldset").style.cssText = 'display: block;';
+      document.querySelector(".introh1").style.cssText = 'display: none;';
+      document.querySelector(".introp").style.cssText = 'display: none;';
+      document.querySelector("#start").style.cssText = 'display: none;';
+
     }
   }, 1000);
   questionOne();} else { return }

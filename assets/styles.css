@@ -1,20 +1,49 @@
-* {
-    color: black;
+:root {
+  --purple: rgb(93, 23, 76);
+  --darkpurple: rgb(42, 11, 35);
+}
+
+h1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  color: var(--darkpurple);
+}
+
+p {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 fieldset {
-    display: none;
+  display: none;
 }
 
 #playAgain {
-    display:none;
+  display: none;
 }
 
 body {
-    border: solid black;
+  border: solid black;
 }
 
 button {
-    background-color: aquamarine;
-    border-radius: 6px;
+  background-color: var(--purple);
+  color: white;
+  border-radius: 6px;
+  margin-left: 50%;
+  margin-right: 50%;
 }
+
+.introh1 {
+  text-decoration: none; 
+}
+
+.introp {
+    text-decoration: none; 
+  }
+
+  
