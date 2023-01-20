@@ -2,6 +2,7 @@ let timerCounter = 0;
 let winCount = 0;
 let lossCount = 0;
 let questionQuantity = 4;
+let gameState = ''
 
 let myQuestions = [
   {
@@ -43,18 +44,23 @@ document.body.appendChild(scoreElement);
 startElement.addEventListener("click", startGame);
 
 function startGame() {
+  gameState = 'active'
   timer();
 }
 
 function timer() {
-  if (timerCounter <= 0) {
+  if (timerCounter === 0) {
     timerCounter = 30;
+    questionQuantity = 4;
     let timerInterval = setInterval(function () {
       timerElement.textContent = `TIME LEFT: ${timerCounter}`;
-      if (timerCounter === 0 || questionQuantity < 0) {
+      if (timerCounter <= 0 || questionQuantity === 0) {
+        timerElement.textContent = ''
         clearInterval(timerInterval);
-        makeDescision();
-      } else if (timerCounter > 0) {
+        if(gameState === 'active') {
+        makeDescision();} else {gameState = 'disabled'}
+      }
+        else if (timerCounter > 0) {
         timerCounter--;
         document.getElementById("fieldset").style.cssText = "display: block;";
         document.querySelector(".introh1").style.cssText = "display: none;";
@@ -70,10 +76,14 @@ function timer() {
 
 function makeDescision() {
   if (questionQuantity === 0 && timerCounter > 0) {
+    gameState = 'disabled';
     handleWin();
+    console.log('youwin')
   } else if (questionQuantity > 0 && timerCounter <= 0) {
+    gameState = 'disabled';
     handleLoss();
-  }
+    console.log('youlose')
+  } 
 }
 
 function questionOne() {
@@ -195,9 +205,9 @@ function questionFour() {
 
   function questionFourHandler(event) {
     questionQuantity--;
-    // choice1.removeEventListener("click", questionFourHandler);
-    // choice2.removeEventListener("click", questionFourHandler);
-    // choice3.removeEventListener("click", questionFourHandler);
+    choice1.removeEventListener("click", questionFourHandler);
+    choice2.removeEventListener("click", questionFourHandler);
+    choice3.removeEventListener("click", questionFourHandler);
     if (event.target.textContent === myQuestions[3].correctAnswer) {
       makeDescision();
     } else { timerCounter = timerCounter - 10;
@@ -214,6 +224,7 @@ function handleLoss() {
 
 function handleWin() {
   winCount++;
+  console.log(winCount)
   higherScore();
   localStorage.setItem("win", winCount);
 }
@@ -239,8 +250,10 @@ function playAgain() {
 }
 
 function replay() {
+  playOnceMore.removeEventListener('click', replay);
+  playOnceMore.style.cssText = 'display: none;';
   timerCounter = 0;
-  questionQuantity = 4;
+  questionQuantity = 0;
   startGame();
 }
 
