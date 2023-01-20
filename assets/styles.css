@@ -9,3 +9,12 @@ fieldset {
 #playAgain {
     display:none;
 }
+
+body {
+    border: solid black;
+}
+
+button {
+    background-color: aquamarine;
+    border-radius: 6px;
+}

@@ -2,8 +2,7 @@ let timerCounter = 0;
 let winCount = 0;
 let lossCount = 0;
 let questionQuantity = 2;
-let question = "";
-let choices = "";
+
 
 let myQuestions = [
   {
@@ -16,6 +15,16 @@ let myQuestions = [
     choices: ["3", "yes", "true"],
     correctAnswer: "yes",
   },
+  // {
+  //   question: "Which of these are a reusable peice of code?",
+  //   choices: ["function", "condtional", "assignment operator"],
+  //   correctAnswer: "function",
+  // },  
+  // {
+  //   question: "Which of these is a conditional delcaration",
+  //   choices: ["choose", "if", "condition"],
+  //   correctAnswer: "if",
+  // }
 ];
 
 let questionElement = document.createElement("h1");
@@ -42,28 +51,28 @@ startElement.addEventListener("click", startGame);
 
 function startGame() {
   timer();
-document.getElementById("fieldset").style.cssText = 'display: block;';
 }
 
 
 
 function timer() {
   if (timerCounter <= 0 ) {
-  timerCounter = 30;
+  timerCounter = 20;
   let timerInterval = setInterval(function () {
     timerElement.textContent = `TIME LEFT: ${timerCounter}`;
-    if (timerCounter === 0 || questionQuantity <= 0) {
+    if (timerCounter === 0 || questionQuantity < 0) {
       clearInterval(timerInterval);
       makeDescision()
     } else if (timerCounter > 0) {
       timerCounter--;
+      document.getElementById("fieldset").style.cssText = 'display: block;';
     }
   }, 1000);
   questionOne();} else { return }
 }
 
 function makeDescision() {
-  if (questionQuantity == 0 && timerCounter > 0) {
+  if (questionQuantity === 0 && timerCounter > 0) {
     handleWin()
   } else if (questionQuantity > 0 && timerCounter <= 0) {
     handleLoss()
@@ -71,7 +80,7 @@ function makeDescision() {
 }
 
 function questionOne() {
-  questionElement.textContent = JSON.stringify(myQuestions[0].question);
+  questionElement.textContent = myQuestions[0].question;
   let choice1Label = document.querySelector('label[for="choiceOne"]');
   let choice2Label = document.querySelector('label[for="choiceTwo"]');
   let choice3Label = document.querySelector('label[for="choiceThree"]');
@@ -89,6 +98,7 @@ function questionOne() {
   choice3.addEventListener("click", q1c3);
 
   function q1c1() {
+    choice1.removeEventListener("click", q1c1);
     timerCounter = timerCounter - 10;
     questionQuantity-- ;
     questionTwo();
@@ -96,19 +106,22 @@ function questionOne() {
   }
 
   function q1c2() {
+    choice2.removeEventListener("click", q1c2);
     timerCounter = timerCounter - 10;
     questionQuantity-- ;
     questionTwo();
   }
 
   function q1c3() {
+    choice3.removeEventListener("click", q1c3);
     questionQuantity-- ;
     questionTwo();
   }
+
 };
 
 function questionTwo() {
-  questionElement.textContent = JSON.stringify(myQuestions[1].question);
+  questionElement.textContent = myQuestions[1].question;
   let choice1Label = document.querySelector('label[for="choiceOne"]');
   let choice2Label = document.querySelector('label[for="choiceTwo"]');
   let choice3Label = document.querySelector('label[for="choiceThree"]');
@@ -120,6 +133,8 @@ function questionTwo() {
   let choice1 = document.getElementById("choiceOne");
   let choice2 = document.getElementById("choiceTwo");
   let choice3 = document.getElementById("choiceThree");
+
+
 
   choice1.addEventListener("click", q2c1);
   choice2.addEventListener("click", q2c2);
@@ -143,6 +158,8 @@ function questionTwo() {
   }
 }
 
+
+
 function handleLoss() {
   lossCount++
   localStorage.setItem("loss", lossCount);
@@ -158,6 +175,9 @@ function handleWin() {
 function higherScore() {
   let currentScore = localStorage.getItem("score")
   if (timerCounter > currentScore) {
+    let input = prompt('Please enter in your initals')
+    upperInput = input.toUpperCase()
+    localStorage.setItem('name', upperInput)
     localStorage.setItem("score", timerCounter)
     renderWinsAndLosses()
   } else {renderWinsAndLosses()}
@@ -180,6 +200,7 @@ function replay() {
 function renderWinsAndLosses() {
   lossElement.textContent = ` Losses: ${localStorage.getItem("loss")}`;
   winElement.textContent = `Wins: ${localStorage.getItem("win")}`;
-  scoreElement.textContent = `HighScore: ${localStorage.getItem("score")}`;
+  scoreElement.textContent = `${localStorage.getItem('name')} / Score: ${localStorage.getItem("score")}`;
   playAgain();
 }
+
