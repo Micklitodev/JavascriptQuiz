@@ -1,6 +1,7 @@
 :root {
   --purple: rgb(93, 23, 76);
   --darkpurple: rgb(42, 11, 35);
+  --lightpurple: rgb(118, 36, 99); 
 }
 
 h1 {
@@ -47,3 +48,9 @@ button {
   }
 
   
+/* psuedo classes */
+
+button:hover {
+  opacity: 0.7;
+  box-shadow: 5px 5px 5px var(--lightpurple) ;
+}

@@ -1,7 +1,7 @@
 let timerCounter = 0;
 let winCount = 0;
 let lossCount = 0;
-let questionQuantity = 2;
+let questionQuantity = 4;
 
 
 let myQuestions = [
@@ -15,16 +15,16 @@ let myQuestions = [
     choices: ["3", "yes", "true"],
     correctAnswer: "yes",
   },
-  // {
-  //   question: "Which of these are a reusable peice of code?",
-  //   choices: ["function", "condtional", "assignment operator"],
-  //   correctAnswer: "function",
-  // },  
-  // {
-  //   question: "Which of these is a conditional delcaration",
-  //   choices: ["choose", "if", "condition"],
-  //   correctAnswer: "if",
-  // }
+  {
+    question: "Which of these are a reusable peice of code?",
+    choices: ["function", "condtional", "assignment operator"],
+    correctAnswer: "function",
+  },  
+  {
+    question: "Which of these is a conditional delcaration",
+    choices: ["choose", "if", "condition"],
+    correctAnswer: "if",
+  }
 ];
 
 let questionElement = document.createElement("h2");
@@ -57,7 +57,7 @@ function startGame() {
 
 function timer() {
   if (timerCounter <= 0 ) {
-  timerCounter = 20;
+  timerCounter = 30;
   let timerInterval = setInterval(function () {
     timerElement.textContent = `TIME LEFT: ${timerCounter}`;
     if (timerCounter === 0 || questionQuantity < 0) {
@@ -85,9 +85,9 @@ function makeDescision() {
 
 function questionOne() {
   questionElement.textContent = myQuestions[0].question;
-  let choice1Label = document.querySelector('label[for="choiceOne"]');
-  let choice2Label = document.querySelector('label[for="choiceTwo"]');
-  let choice3Label = document.querySelector('label[for="choiceThree"]');
+  let choice1Label = document.getElementById('choiceOne');
+  let choice2Label = document.getElementById('choiceTwo');
+  let choice3Label = document.getElementById('choiceThree');
 
   choice1Label.textContent = myQuestions[0].choices[0];
   choice2Label.textContent = myQuestions[0].choices[1];
@@ -126,9 +126,9 @@ function questionOne() {
 
 function questionTwo() {
   questionElement.textContent = myQuestions[1].question;
-  let choice1Label = document.querySelector('label[for="choiceOne"]');
-  let choice2Label = document.querySelector('label[for="choiceTwo"]');
-  let choice3Label = document.querySelector('label[for="choiceThree"]');
+  let choice1Label = document.getElementById('choiceOne');
+  let choice2Label = document.getElementById('choiceTwo');
+  let choice3Label = document.getElementById('choiceThree');
 
   choice1Label.textContent = myQuestions[1].choices[0];
   choice2Label.textContent = myQuestions[1].choices[1];
@@ -147,18 +147,94 @@ function questionTwo() {
   function q2c1() {
     questionQuantity-- ;
     timerCounter = timerCounter - 10;
-    // questionThree();
+    questionThree();
   }
 
   function q2c2() {
     questionQuantity-- ;
-    handleWin();
+    questionThree()
   }
 
   function q2c3() {
     questionQuantity-- ;
     timerCounter = timerCounter - 10;
-    // questionThree();
+    questionThree();
+  }
+}
+
+function questionThree() {
+  questionElement.textContent = myQuestions[2].question;
+  let choice1Label = document.getElementById('choiceOne');
+  let choice2Label = document.getElementById('choiceTwo');
+  let choice3Label = document.getElementById('choiceThree');
+
+  choice1Label.textContent = myQuestions[2].choices[0];
+  choice2Label.textContent = myQuestions[2].choices[1];
+  choice3Label.textContent = myQuestions[2].choices[2];
+
+  let choice1 = document.getElementById("choiceOne");
+  let choice2 = document.getElementById("choiceTwo");
+  let choice3 = document.getElementById("choiceThree");
+
+
+
+  choice1.addEventListener("click", q3c1);
+  choice2.addEventListener("click", q3c2);
+  choice3.addEventListener("click", q3c3);
+
+  function q3c1() {
+    questionQuantity-- ;
+    questionFour();
+  }
+
+  function q3c2() {
+    questionQuantity-- ;
+    timerCounter = timerCounter - 10;
+    questionFour();
+  }
+
+  function q3c3() {
+    questionQuantity-- ;
+    timerCounter = timerCounter - 10;
+    questionFour();
+  }
+}
+
+function questionFour() {
+  questionElement.textContent = myQuestions[3].question;
+  let choice1Label = document.getElementById('choiceOne');
+  let choice2Label = document.getElementById('choiceTwo');
+  let choice3Label = document.getElementById('choiceThree');
+
+  choice1Label.textContent = myQuestions[3].choices[0];
+  choice2Label.textContent = myQuestions[3].choices[1];
+  choice3Label.textContent = myQuestions[3].choices[2];
+
+  let choice1 = document.getElementById("choiceOne");
+  let choice2 = document.getElementById("choiceTwo");
+  let choice3 = document.getElementById("choiceThree");
+
+
+
+  choice1.addEventListener("click", q4c1);
+  choice2.addEventListener("click", q4c2);
+  choice3.addEventListener("click", q4c3);
+
+  function q4c1() {
+    questionQuantity-- ;
+    timerCounter = timerCounter - 10;
+    makeDescision();
+  }
+
+  function q4c2() {
+    questionQuantity-- ;
+    makeDescision();
+  }
+
+  function q4c3() {
+    questionQuantity-- ;
+    timerCounter = timerCounter - 10;
+    makeDescision();
   }
 }
 
@@ -197,7 +273,7 @@ function playAgain() {
 
 function replay() {
   timerCounter = 0;
-  questionQuantity = 2;
+  questionQuantity = 4;
   startGame();
 }
 
