@@ -2,7 +2,7 @@ let timerCounter = 0;
 let winCount = 0;
 let lossCount = 0;
 let questionQuantity = 4;
-let gameState = ''
+let gameState = "disabled";
 
 let myQuestions = [
   {
@@ -41,10 +41,14 @@ document.body.appendChild(choicesElement);
 let scoreElement = document.createElement("div");
 document.body.appendChild(scoreElement);
 
+let choice1 = "";
+let choice2 = "";
+let choice3 = "";
+
 startElement.addEventListener("click", startGame);
 
 function startGame() {
-  gameState = 'active'
+  gameState = "active";
   timer();
 }
 
@@ -55,12 +59,14 @@ function timer() {
     let timerInterval = setInterval(function () {
       timerElement.textContent = `TIME LEFT: ${timerCounter}`;
       if (timerCounter <= 0 || questionQuantity === 0) {
-        timerElement.textContent = ''
+        timerElement.textContent = "";
         clearInterval(timerInterval);
-        if(gameState === 'active') {
-        makeDescision();} else {gameState = 'disabled'}
-      }
-        else if (timerCounter > 0) {
+        if (gameState === "active") {
+          makeDescision();
+        } else {
+          gameState = "disabled";
+        }
+      } else if (timerCounter > 0) {
         timerCounter--;
         document.getElementById("fieldset").style.cssText = "display: block;";
         document.querySelector(".introh1").style.cssText = "display: none;";
@@ -76,14 +82,12 @@ function timer() {
 
 function makeDescision() {
   if (questionQuantity === 0 && timerCounter > 0) {
-    gameState = 'disabled';
+    gameState = "disabled";
     handleWin();
-    console.log('youwin')
   } else if (questionQuantity > 0 && timerCounter <= 0) {
-    gameState = 'disabled';
+    gameState = "disabled";
     handleLoss();
-    console.log('youlose')
-  } 
+  }
 }
 
 function questionOne() {
@@ -96,24 +100,25 @@ function questionOne() {
   choice2Label.textContent = myQuestions[0].choices[1];
   choice3Label.textContent = myQuestions[0].choices[2];
 
-  let choice1 = document.getElementById("choiceOne");
-  let choice2 = document.getElementById("choiceTwo");
-  let choice3 = document.getElementById("choiceThree");
+  choice1 = document.getElementById("choiceOne");
+  choice2 = document.getElementById("choiceTwo");
+  choice3 = document.getElementById("choiceThree");
 
-  choice1.addEventListener("click", questionOneHandler);
-  choice2.addEventListener("click", questionOneHandler);
-  choice3.addEventListener("click", questionOneHandler);
+  const choices = [choice1, choice2, choice3];
+  for (let choice of choices) {
+    choice.addEventListener("click", questionOneHandler);
+  }
 
   function questionOneHandler(event) {
     questionQuantity--;
-    choice1.removeEventListener("click", questionOneHandler);
-    choice2.removeEventListener("click", questionOneHandler);
-    choice3.removeEventListener("click", questionOneHandler);
+    for (let choice of choices) {
+      choice.removeEventListener("click", questionOneHandler);
+    }
     if (event.target.textContent === myQuestions[0].correctAnswer) {
       questionTwo();
-    } else { timerCounter = timerCounter - 10;
+    } else {
+      timerCounter = timerCounter - 10;
       questionTwo();
-
     }
 
     return;
@@ -130,22 +135,24 @@ function questionTwo() {
   choice2Label.textContent = myQuestions[1].choices[1];
   choice3Label.textContent = myQuestions[1].choices[2];
 
-  let choice1 = document.getElementById("choiceOne");
-  let choice2 = document.getElementById("choiceTwo");
-  let choice3 = document.getElementById("choiceThree");
+  choice1 = document.getElementById("choiceOne");
+  choice2 = document.getElementById("choiceTwo");
+  choice3 = document.getElementById("choiceThree");
 
-  choice1.addEventListener("click", questionTwoHandler);
-  choice2.addEventListener("click", questionTwoHandler);
-  choice3.addEventListener("click", questionTwoHandler);
+  const choices = [choice1, choice2, choice3];
+  for (let choice of choices) {
+    choice.addEventListener("click", questionTwoHandler);
+  }
 
   function questionTwoHandler(event) {
     questionQuantity--;
-    choice1.removeEventListener("click", questionTwoHandler);
-    choice2.removeEventListener("click", questionTwoHandler);
-    choice3.removeEventListener("click", questionTwoHandler);
+    for (let choice of choices) {
+      choice.removeEventListener("click", questionTwoHandler);
+    }
     if (event.target.textContent === myQuestions[1].correctAnswer) {
       questionThree();
-    } else { timerCounter = timerCounter - 10;
+    } else {
+      timerCounter = timerCounter - 10;
       questionThree();
     }
     return;
@@ -153,7 +160,6 @@ function questionTwo() {
 }
 
 function questionThree() {
-
   questionElement.textContent = myQuestions[2].question;
   let choice1Label = document.getElementById("choiceOne");
   let choice2Label = document.getElementById("choiceTwo");
@@ -163,22 +169,24 @@ function questionThree() {
   choice2Label.textContent = myQuestions[2].choices[1];
   choice3Label.textContent = myQuestions[2].choices[2];
 
-  let choice1 = document.getElementById("choiceOne");
-  let choice2 = document.getElementById("choiceTwo");
-  let choice3 = document.getElementById("choiceThree");
+  choice1 = document.getElementById("choiceOne");
+  choice2 = document.getElementById("choiceTwo");
+  choice3 = document.getElementById("choiceThree");
 
-  choice1.addEventListener("click", questionThreeHandler);
-  choice2.addEventListener("click", questionThreeHandler);
-  choice3.addEventListener("click", questionThreeHandler);
+  const choices = [choice1, choice2, choice3];
+  for (let choice of choices) {
+    choice.addEventListener("click", questionThreeHandler);
+  }
 
   function questionThreeHandler(event) {
     questionQuantity--;
-    choice1.removeEventListener("click", questionThreeHandler);
-    choice2.removeEventListener("click", questionThreeHandler);
-    choice3.removeEventListener("click", questionThreeHandler);
+    for (let choice of choices) {
+      choice.removeEventListener("click", questionThreeHandler);
+    }
     if (event.target.textContent === myQuestions[2].correctAnswer) {
       questionFour();
-    } else { timerCounter = timerCounter - 10;
+    } else {
+      timerCounter = timerCounter - 10;
       questionFour();
     }
     return;
@@ -195,38 +203,42 @@ function questionFour() {
   choice2Label.textContent = myQuestions[3].choices[1];
   choice3Label.textContent = myQuestions[3].choices[2];
 
-  let choice1 = document.getElementById("choiceOne");
-  let choice2 = document.getElementById("choiceTwo");
-  let choice3 = document.getElementById("choiceThree");
+  choice1 = document.getElementById("choiceOne");
+  choice2 = document.getElementById("choiceTwo");
+  choice3 = document.getElementById("choiceThree");
 
-  choice1.addEventListener("click", questionFourHandler);
-  choice2.addEventListener("click", questionFourHandler);
-  choice3.addEventListener("click", questionFourHandler);
+  const choices = [choice1, choice2, choice3];
+  for (let choice of choices) {
+    choice.addEventListener("click", questionFourHandler);
+  }
 
   function questionFourHandler(event) {
     questionQuantity--;
-    choice1.removeEventListener("click", questionFourHandler);
-    choice2.removeEventListener("click", questionFourHandler);
-    choice3.removeEventListener("click", questionFourHandler);
+    for (let choice of choices) {
+      choice.removeEventListener("click", questionFourHandler);
+    }
     if (event.target.textContent === myQuestions[3].correctAnswer) {
       makeDescision();
-    } else { timerCounter = timerCounter - 10;
+    } else {
+      timerCounter = timerCounter - 10;
       makeDescision();
     }
   }
 }
 
 function handleLoss() {
-  lossCount++;
-  localStorage.setItem("loss", lossCount);
+  console.log(questionQuantity);
+  let currentLoss = parseInt(localStorage.getItem("loss"), 10) || 0;
+  let updateLoss = currentLoss + 1;
+  localStorage.setItem("loss", updateLoss);
   renderWinsAndLosses();
 }
 
 function handleWin() {
-  winCount++;
-  console.log(winCount)
+  let currentWin = parseInt(localStorage.getItem("win"), 10) || 0;
+  let updateWin = currentWin + 1;
+  localStorage.setItem("win", updateWin);
   higherScore();
-  localStorage.setItem("win", winCount);
 }
 
 function higherScore() {
@@ -250,12 +262,27 @@ function playAgain() {
 }
 
 function replay() {
-  playOnceMore.removeEventListener('click', replay);
-  playOnceMore.style.cssText = 'display: none;';
-  timerCounter = 0;
-  questionQuantity = 0;
+  playOnceMore.removeEventListener("click", replay);
+  playOnceMore.style.cssText = "display: none;";
+  resetCount();
   startGame();
 }
+
+
+
+function resetCount() {
+  timerCounter = 0;
+  winCount = 0;
+  lossCount = 0;
+  questionQuantity = 4;
+  choices1 = 0;
+  choice2 = 0;
+  choice3 = 0;
+  choice1Label = 0;
+  choice2Label = 0;
+  choice3Label = 0;
+}
+
 
 function renderWinsAndLosses() {
   lossElement.textContent = ` Losses: ${localStorage.getItem("loss")}`;
@@ -263,5 +290,9 @@ function renderWinsAndLosses() {
   scoreElement.textContent = `${localStorage.getItem(
     "name"
   )} / Score: ${localStorage.getItem("score")}`;
+  if (gameState === "disabled") {
+    console.log("gamestate is currently disabled");
+    startElement.removeEventListener("click", startGame);
+  }
   playAgain();
 }
