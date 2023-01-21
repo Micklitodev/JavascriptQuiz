@@ -57,9 +57,9 @@ function timer() {
     timerCounter = 30;
     questionQuantity = 4;
     let timerInterval = setInterval(function () {
-      timerElement.textContent = `TIME LEFT: ${timerCounter}`;
+      timerElement.textContent = `Time Left: ${timerCounter}`;
       if (timerCounter <= 0 || questionQuantity === 0) {
-        timerElement.textContent = "";
+       timerElement.textContent = "";
         clearInterval(timerInterval);
         if (gameState === "active") {
           makeDescision();
@@ -68,10 +68,6 @@ function timer() {
         }
       } else if (timerCounter > 0) {
         timerCounter--;
-        document.getElementById("fieldset").style.cssText = "display: block;";
-        document.querySelector(".introh1").style.cssText = "display: none;";
-        document.querySelector(".introp").style.cssText = "display: none;";
-        document.querySelector("#start").style.cssText = "display: none;";
       }
     }, 1000);
     questionOne();
@@ -91,6 +87,11 @@ function makeDescision() {
 }
 
 function questionOne() {
+  document.getElementById("fieldset").style.cssText = "display: block;";
+  document.querySelector(".introh1").style.cssText = "display: none;";
+  document.querySelector(".introp").style.cssText = "display: none;";
+  document.querySelector("#start").style.cssText = "display: none;";
+
   questionElement.textContent = myQuestions[0].question;
   let choice1Label = document.getElementById("choiceOne");
   let choice2Label = document.getElementById("choiceTwo");
@@ -115,8 +116,12 @@ function questionOne() {
       choice.removeEventListener("click", questionOneHandler);
     }
     if (event.target.textContent === myQuestions[0].correctAnswer) {
+      let messageEl = document.querySelector('#correct-incorrect')
+      messageEl.textContent = 'Correct!'
       questionTwo();
     } else {
+      let messageEl = document.querySelector('#correct-incorrect')
+      messageEl.textContent = 'Incorrect.'
       timerCounter = timerCounter - 10;
       questionTwo();
     }
@@ -150,8 +155,12 @@ function questionTwo() {
       choice.removeEventListener("click", questionTwoHandler);
     }
     if (event.target.textContent === myQuestions[1].correctAnswer) {
+      let messageEl = document.querySelector('#correct-incorrect')
+      messageEl.textContent = 'Correct!'
       questionThree();
     } else {
+      let messageEl = document.querySelector('#correct-incorrect')
+      messageEl.textContent = 'Incorrect.'
       timerCounter = timerCounter - 10;
       questionThree();
     }
@@ -184,8 +193,12 @@ function questionThree() {
       choice.removeEventListener("click", questionThreeHandler);
     }
     if (event.target.textContent === myQuestions[2].correctAnswer) {
+      let messageEl = document.querySelector('#correct-incorrect')
+      messageEl.textContent = 'Correct!'
       questionFour();
     } else {
+      let messageEl = document.querySelector('#correct-incorrect')
+      messageEl.textContent = 'Incorrect.'
       timerCounter = timerCounter - 10;
       questionFour();
     }
@@ -218,9 +231,15 @@ function questionFour() {
       choice.removeEventListener("click", questionFourHandler);
     }
     if (event.target.textContent === myQuestions[3].correctAnswer) {
+      let messageEl = document.querySelector('#correct-incorrect')
+      messageEl.textContent = 'Correct!'
+      questionElement.textContent = "";
       makeDescision();
     } else {
+      let messageEl = document.querySelector('#correct-incorrect')
+      messageEl.textContent = 'Incorrect.'
       timerCounter = timerCounter - 10;
+      questionElement.textContent = "";
       makeDescision();
     }
   }
@@ -255,6 +274,8 @@ function higherScore() {
 }
 
 function playAgain() {
+  questionElement.textContent = ''
+  timerElement.textContent = ''
   document.getElementById("fieldset").style.cssText = "display: none;";
   playOnceMore = document.getElementById("playAgain");
   playOnceMore.style.cssText = "display: block;";
@@ -267,8 +288,6 @@ function replay() {
   resetCount();
   startGame();
 }
-
-
 
 function resetCount() {
   timerCounter = 0;
@@ -283,8 +302,9 @@ function resetCount() {
   choice3Label = 0;
 }
 
-
 function renderWinsAndLosses() {
+  let messageEl = document.querySelector('#correct-incorrect')
+  messageEl.textContent = ''
   lossElement.textContent = ` Losses: ${localStorage.getItem("loss")}`;
   winElement.textContent = `Wins: ${localStorage.getItem("win")}`;
   scoreElement.textContent = `${localStorage.getItem(
