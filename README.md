@@ -2,11 +2,11 @@
 
 ## Link
 
-Click [here]() to go to the live link.
+Click [here](https://micklitodev.github.io/JavascriptQuiz/) to go to the live link.
 
 ## ScreenShot
 
-![Screenshot of finished website product part 1]()
+![Screenshot of live javascript quiz.](./assets/images/jsquizappss.png)
 
 ## Description
 
