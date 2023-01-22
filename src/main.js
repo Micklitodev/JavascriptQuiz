@@ -295,7 +295,7 @@ function questionFour() {
 
 // QuestionHandler function loops threw choices array and removes event listeners
 // then compares the value of where the event originated from to the correct answer
-// from specified value of array of objects. 
+// from specified value of array of objects.
 // specific things are excuted on result of correct vs incorrect (ex. -10 from timer if incorrect )
 // then calls the make decision function.
 
@@ -324,8 +324,8 @@ function questionFourHandler(event) {
 }
 
 // makeDecision function checks if the game has been won or loss, once
-// make decision used if conditional to determine outome, 
-// executes either handleWin function or handleLoss function. 
+// make decision used if conditional to determine outome,
+// executes either handleWin function or handleLoss function.
 
 function makeDescision() {
   if (questionQuantity === 0 && timerCounter > 0) {
@@ -340,8 +340,8 @@ function makeDescision() {
 // handleLoss function is executed if game is detemined as a loss by makeDecision
 // function. Then sets currentLoss to the value of the localStorage parsed Integer
 // by radix 10 to convert from string, then defines updateLoss as currentLoss + 1
-// and sets local storage value to it. 
-// then executes renderValues function 
+// and sets local storage value to it.
+// then executes renderValues function
 
 function handleLoss() {
   let currentLoss = parseInt(localStorage.getItem("loss"), 10) || 0;
@@ -353,8 +353,8 @@ function handleLoss() {
 // handleWin function is executed if game is detemined as a win by makeDecision
 // function. Then sets currentWin to the value of the localStorage parsed Integer
 // by radix 10 to convert from string, then defines updateWin as currentWin + 1
-// and sets local storage value to it. 
-// then executes higherScore function 
+// and sets local storage value to it.
+// then executes higherScore function
 
 function handleWin() {
   let currentWin = parseInt(localStorage.getItem("win"), 10) || 0;
@@ -368,8 +368,8 @@ function handleWin() {
 // for user to enter in initals. If they enter in value to prompt, input will be
 // uppercased and input as well as current timer score will be saved to local storage
 // if no input its detected by prompt higher score function will re - execute
-// forcing user to enter value to the prompt. 
-// after value is set to local storage, renderValues function is executed. 
+// forcing user to enter value to the prompt.
+// after value is set to local storage, renderValues function is executed.
 
 function higherScore() {
   let currentScore = localStorage.getItem("score");
@@ -390,8 +390,7 @@ function higherScore() {
 
 // renderValues function sets display properties as their significant values
 // and checks gameState then if disabled removes start button event listener
-// and executes play Again function. 
-
+// and executes play Again function.
 
 function renderValues() {
   higherScoreH1.style.cssText = "display: flex;";
@@ -411,11 +410,10 @@ function renderValues() {
   playAgain();
 }
 
-
 // playAgain function reassigns elements text content to nothing to hide
-// then sets fieldsets cssText to  display: none. 
-// then sets cssText for play again to display and adds event listener for 
-// it to be clicked if clicked executes replay function 
+// then sets fieldsets cssText to  display: none.
+// then sets cssText for play again to display and adds event listener for
+// it to be clicked if clicked executes replay function
 
 function playAgain() {
   questionElement.textContent = "";
@@ -426,15 +424,14 @@ function playAgain() {
   playOnceMore.addEventListener("click", replay);
 }
 
-
 // resetCount function ensures ALL of the data values have been reset to their default
 // state prior to ever having played game, then loops threw and removes any left over
-// event listners that werent removed for example in the case 2 wrong choices are 
+// event listners that werent removed for example in the case 2 wrong choices are
 // selected and time runs out since the structure is to clean up the event listeners
 // after making choice. if the choice never gets made event listener will stick around
-// this ensures they are cleared. 
-// then resetCount sets display properties of highscore h1 and score Element to none 
-// with cssText. 
+// this ensures they are cleared.
+// then resetCount sets display properties of highscore h1 and score Element to none
+// with cssText.
 
 function resetCount() {
   timerCounter = 0;
@@ -455,9 +452,9 @@ function resetCount() {
   scoreElement.style.cssText = "display: none;";
 }
 
-// replay function removes event listener from playAgain buttons, 
-// hides play again button by setting cssText to display none. 
-// then executes resetCount function AND start game function after resetCount function. 
+// replay function removes event listener from playAgain buttons,
+// hides play again button by setting cssText to display none.
+// then executes resetCount function AND start game function after resetCount function.
 
 function replay() {
   playOnceMore.removeEventListener("click", replay);
