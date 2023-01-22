@@ -110,25 +110,33 @@ function questionOne() {
     choice.addEventListener("click", questionOneHandler);
   }
 
-  function questionOneHandler(event) {
-    questionQuantity--;
-    for (let choice of choices) {
-      choice.removeEventListener("click", questionOneHandler);
-    }
-    if (event.target.textContent === myQuestions[0].correctAnswer) {
-      let messageEl = document.querySelector('#correct-incorrect')
-      messageEl.textContent = 'Correct!'
-      questionTwo();
-    } else {
-      let messageEl = document.querySelector('#correct-incorrect')
-      messageEl.textContent = 'Incorrect.'
-      timerCounter = timerCounter - 10;
-      questionTwo();
-    }
-
-    return;
-  }
 }
+
+function questionOneHandler(event) {
+  choice1 = document.getElementById("choiceOne");
+  choice2 = document.getElementById("choiceTwo");
+  choice3 = document.getElementById("choiceThree");
+
+  const choices = [choice1, choice2, choice3];
+
+  questionQuantity--;
+  for (let choice of choices) {
+    choice.removeEventListener("click", questionOneHandler);
+  }
+  if (event.target.textContent === myQuestions[0].correctAnswer) {
+    let messageEl = document.querySelector('#correct-incorrect')
+    messageEl.textContent = 'Correct!'
+    questionTwo();
+  } else {
+    let messageEl = document.querySelector('#correct-incorrect')
+    messageEl.textContent = 'Incorrect.'
+    timerCounter = timerCounter - 10;
+    questionTwo();
+  }
+
+  return;
+}
+
 
 function questionTwo() {
   questionElement.textContent = myQuestions[1].question;
@@ -148,25 +156,33 @@ function questionTwo() {
   for (let choice of choices) {
     choice.addEventListener("click", questionTwoHandler);
   }
-
-  function questionTwoHandler(event) {
-    questionQuantity--;
-    for (let choice of choices) {
-      choice.removeEventListener("click", questionTwoHandler);
-    }
-    if (event.target.textContent === myQuestions[1].correctAnswer) {
-      let messageEl = document.querySelector('#correct-incorrect')
-      messageEl.textContent = 'Correct!'
-      questionThree();
-    } else {
-      let messageEl = document.querySelector('#correct-incorrect')
-      messageEl.textContent = 'Incorrect.'
-      timerCounter = timerCounter - 10;
-      questionThree();
-    }
-    return;
-  }
 }
+
+
+function questionTwoHandler(event) {
+  choice1 = document.getElementById("choiceOne");
+  choice2 = document.getElementById("choiceTwo");
+  choice3 = document.getElementById("choiceThree");
+
+  const choices = [choice1, choice2, choice3];
+  questionQuantity--;
+  for (let choice of choices) {
+    choice.removeEventListener("click", questionTwoHandler);
+  }
+  if (event.target.textContent === myQuestions[1].correctAnswer) {
+    let messageEl = document.querySelector('#correct-incorrect')
+    messageEl.textContent = 'Correct!'
+    questionThree();
+  } else {
+    let messageEl = document.querySelector('#correct-incorrect')
+    messageEl.textContent = 'Incorrect.'
+    timerCounter = timerCounter - 10;
+    questionThree();
+  }
+  return;
+}
+
+
 
 function questionThree() {
   questionElement.textContent = myQuestions[2].question;
@@ -186,24 +202,29 @@ function questionThree() {
   for (let choice of choices) {
     choice.addEventListener("click", questionThreeHandler);
   }
+}
 
-  function questionThreeHandler(event) {
-    questionQuantity--;
-    for (let choice of choices) {
-      choice.removeEventListener("click", questionThreeHandler);
-    }
-    if (event.target.textContent === myQuestions[2].correctAnswer) {
-      let messageEl = document.querySelector('#correct-incorrect')
-      messageEl.textContent = 'Correct!'
-      questionFour();
-    } else {
-      let messageEl = document.querySelector('#correct-incorrect')
-      messageEl.textContent = 'Incorrect.'
-      timerCounter = timerCounter - 10;
-      questionFour();
-    }
-    return;
+function questionThreeHandler(event) {
+  choice1 = document.getElementById("choiceOne");
+  choice2 = document.getElementById("choiceTwo");
+  choice3 = document.getElementById("choiceThree");
+
+  const choices = [choice1, choice2, choice3];
+  questionQuantity--;
+  for (let choice of choices) {
+    choice.removeEventListener("click", questionThreeHandler);
   }
+  if (event.target.textContent === myQuestions[2].correctAnswer) {
+    let messageEl = document.querySelector('#correct-incorrect')
+    messageEl.textContent = 'Correct!'
+    questionFour();
+  } else {
+    let messageEl = document.querySelector('#correct-incorrect')
+    messageEl.textContent = 'Incorrect.'
+    timerCounter = timerCounter - 10;
+    questionFour();
+  }
+  return;
 }
 
 function questionFour() {
@@ -225,23 +246,29 @@ function questionFour() {
     choice.addEventListener("click", questionFourHandler);
   }
 
-  function questionFourHandler(event) {
-    questionQuantity--;
-    for (let choice of choices) {
-      choice.removeEventListener("click", questionFourHandler);
-    }
-    if (event.target.textContent === myQuestions[3].correctAnswer) {
-      let messageEl = document.querySelector('#correct-incorrect')
-      messageEl.textContent = 'Correct!'
-      questionElement.textContent = "";
-      makeDescision();
-    } else {
-      let messageEl = document.querySelector('#correct-incorrect')
-      messageEl.textContent = 'Incorrect.'
-      timerCounter = timerCounter - 10;
-      questionElement.textContent = "";
-      makeDescision();
-    }
+}
+
+function questionFourHandler(event) {
+  choice1 = document.getElementById("choiceOne");
+  choice2 = document.getElementById("choiceTwo");
+  choice3 = document.getElementById("choiceThree");
+
+  const choices = [choice1, choice2, choice3];
+  questionQuantity--;
+  for (let choice of choices) {
+    choice.removeEventListener("click", questionFourHandler);
+  }
+  if (event.target.textContent === myQuestions[3].correctAnswer) {
+    let messageEl = document.querySelector('#correct-incorrect')
+    messageEl.textContent = 'Correct!'
+    questionElement.textContent = "";
+    makeDescision();
+  } else {
+    let messageEl = document.querySelector('#correct-incorrect')
+    messageEl.textContent = 'Incorrect.'
+    timerCounter = timerCounter - 10;
+    questionElement.textContent = "";
+    makeDescision();
   }
 }
 
@@ -294,12 +321,18 @@ function resetCount() {
   winCount = 0;
   lossCount = 0;
   questionQuantity = 4;
-  choices1 = 0;
-  choice2 = 0;
-  choice3 = 0;
-  choice1Label = 0;
-  choice2Label = 0;
-  choice3Label = 0;
+  choice1 = document.getElementById("choiceOne");
+  choice2 = document.getElementById("choiceTwo");
+  choice3 = document.getElementById("choiceThree");
+  let choices = [choice1, choice2, choice3]
+  for (let choice of choices) {
+    choice.removeEventListener("click", questionOneHandler);
+    choice.removeEventListener("click", questionTwoHandler);
+    choice.removeEventListener("click", questionThreeHandler);
+    choice.removeEventListener("click", questionFourHandler);
+  }
+  
+
 }
 
 function renderWinsAndLosses() {
