@@ -12,7 +12,7 @@ let myQuestions = [
   },
   {
     question: "What of the following is a string?",
-    choices: ["3", "yes", "true"],
+    choices: ["3", "yes", "||"],
     correctAnswer: "yes",
   },
   {
@@ -31,15 +31,22 @@ let questionElement = document.createElement("h2");
 document.body.appendChild(questionElement);
 let timerElement = document.createElement("div");
 document.body.appendChild(timerElement);
+timerElement.setAttribute("class", "timerElement");
 let lossElement = document.createElement("div");
 document.body.appendChild(lossElement);
+lossElement.setAttribute("class", "current-wins-losses-el");
 let winElement = document.createElement("div");
 document.body.appendChild(winElement);
+winElement.setAttribute("class", "current-wins-losses-el");
+
 let startElement = document.getElementById("start");
 let choicesElement = document.createElement("div");
 document.body.appendChild(choicesElement);
+let higherScoreH1 = document.createElement("h1");
+document.body.appendChild(higherScoreH1);
 let scoreElement = document.createElement("div");
 document.body.appendChild(scoreElement);
+scoreElement.setAttribute("class", "scoreElement");
 
 let choice1 = "";
 let choice2 = "";
@@ -59,7 +66,7 @@ function timer() {
     let timerInterval = setInterval(function () {
       timerElement.textContent = `Time Left: ${timerCounter}`;
       if (timerCounter <= 0 || questionQuantity === 0) {
-       timerElement.textContent = "";
+        timerElement.textContent = "";
         clearInterval(timerInterval);
         if (gameState === "active") {
           makeDescision();
@@ -71,8 +78,6 @@ function timer() {
       }
     }, 1000);
     questionOne();
-  } else {
-    return;
   }
 }
 
@@ -109,7 +114,6 @@ function questionOne() {
   for (let choice of choices) {
     choice.addEventListener("click", questionOneHandler);
   }
-
 }
 
 function questionOneHandler(event) {
@@ -124,19 +128,18 @@ function questionOneHandler(event) {
     choice.removeEventListener("click", questionOneHandler);
   }
   if (event.target.textContent === myQuestions[0].correctAnswer) {
-    let messageEl = document.querySelector('#correct-incorrect')
-    messageEl.textContent = 'Correct!'
+    let messageEl = document.querySelector("#correct-incorrect");
+    messageEl.textContent = "Correct!";
     questionTwo();
   } else {
-    let messageEl = document.querySelector('#correct-incorrect')
-    messageEl.textContent = 'Incorrect.'
+    let messageEl = document.querySelector("#correct-incorrect");
+    messageEl.textContent = "Incorrect.";
     timerCounter = timerCounter - 10;
     questionTwo();
   }
 
   return;
 }
-
 
 function questionTwo() {
   questionElement.textContent = myQuestions[1].question;
@@ -158,7 +161,6 @@ function questionTwo() {
   }
 }
 
-
 function questionTwoHandler(event) {
   choice1 = document.getElementById("choiceOne");
   choice2 = document.getElementById("choiceTwo");
@@ -170,19 +172,17 @@ function questionTwoHandler(event) {
     choice.removeEventListener("click", questionTwoHandler);
   }
   if (event.target.textContent === myQuestions[1].correctAnswer) {
-    let messageEl = document.querySelector('#correct-incorrect')
-    messageEl.textContent = 'Correct!'
+    let messageEl = document.querySelector("#correct-incorrect");
+    messageEl.textContent = "Correct!";
     questionThree();
   } else {
-    let messageEl = document.querySelector('#correct-incorrect')
-    messageEl.textContent = 'Incorrect.'
+    let messageEl = document.querySelector("#correct-incorrect");
+    messageEl.textContent = "Incorrect.";
     timerCounter = timerCounter - 10;
     questionThree();
   }
   return;
 }
-
-
 
 function questionThree() {
   questionElement.textContent = myQuestions[2].question;
@@ -215,12 +215,12 @@ function questionThreeHandler(event) {
     choice.removeEventListener("click", questionThreeHandler);
   }
   if (event.target.textContent === myQuestions[2].correctAnswer) {
-    let messageEl = document.querySelector('#correct-incorrect')
-    messageEl.textContent = 'Correct!'
+    let messageEl = document.querySelector("#correct-incorrect");
+    messageEl.textContent = "Correct!";
     questionFour();
   } else {
-    let messageEl = document.querySelector('#correct-incorrect')
-    messageEl.textContent = 'Incorrect.'
+    let messageEl = document.querySelector("#correct-incorrect");
+    messageEl.textContent = "Incorrect.";
     timerCounter = timerCounter - 10;
     questionFour();
   }
@@ -245,7 +245,6 @@ function questionFour() {
   for (let choice of choices) {
     choice.addEventListener("click", questionFourHandler);
   }
-
 }
 
 function questionFourHandler(event) {
@@ -259,13 +258,13 @@ function questionFourHandler(event) {
     choice.removeEventListener("click", questionFourHandler);
   }
   if (event.target.textContent === myQuestions[3].correctAnswer) {
-    let messageEl = document.querySelector('#correct-incorrect')
-    messageEl.textContent = 'Correct!'
+    let messageEl = document.querySelector("#correct-incorrect");
+    messageEl.textContent = "Correct!";
     questionElement.textContent = "";
     makeDescision();
   } else {
-    let messageEl = document.querySelector('#correct-incorrect')
-    messageEl.textContent = 'Incorrect.'
+    let messageEl = document.querySelector("#correct-incorrect");
+    messageEl.textContent = "Incorrect.";
     timerCounter = timerCounter - 10;
     questionElement.textContent = "";
     makeDescision();
@@ -291,18 +290,22 @@ function higherScore() {
   let currentScore = localStorage.getItem("score");
   if (timerCounter > currentScore) {
     let input = prompt("Please enter in your initals");
-    upperInput = input.toUpperCase();
-    localStorage.setItem("name", upperInput);
-    localStorage.setItem("score", timerCounter);
-    renderWinsAndLosses();
+    if (input) {
+      upperInput = input.toUpperCase();
+      localStorage.setItem("name", upperInput);
+      localStorage.setItem("score", timerCounter);
+      renderWinsAndLosses();
+    } else {
+      higherScore();
+    }
   } else {
     renderWinsAndLosses();
   }
 }
 
 function playAgain() {
-  questionElement.textContent = ''
-  timerElement.textContent = ''
+  questionElement.textContent = "";
+  timerElement.textContent = "";
   document.getElementById("fieldset").style.cssText = "display: none;";
   playOnceMore = document.getElementById("playAgain");
   playOnceMore.style.cssText = "display: block;";
@@ -324,22 +327,26 @@ function resetCount() {
   choice1 = document.getElementById("choiceOne");
   choice2 = document.getElementById("choiceTwo");
   choice3 = document.getElementById("choiceThree");
-  let choices = [choice1, choice2, choice3]
+  let choices = [choice1, choice2, choice3];
   for (let choice of choices) {
     choice.removeEventListener("click", questionOneHandler);
     choice.removeEventListener("click", questionTwoHandler);
     choice.removeEventListener("click", questionThreeHandler);
     choice.removeEventListener("click", questionFourHandler);
   }
-  
-
+  higherScoreH1.style.cssText = "display: none;";
+  scoreElement.style.cssText = "display: none;";
 }
 
 function renderWinsAndLosses() {
-  let messageEl = document.querySelector('#correct-incorrect')
-  messageEl.textContent = ''
+  higherScoreH1.style.cssText = "display: flex;";
+  scoreElement.style.cssText = "display: flex;";
+  let messageEl = document.querySelector("#correct-incorrect");
+  messageEl.textContent = "";
   lossElement.textContent = ` Losses: ${localStorage.getItem("loss")}`;
   winElement.textContent = `Wins: ${localStorage.getItem("win")}`;
+  higherScoreH1.textContent = "-HighScore-";
+
   scoreElement.textContent = `${localStorage.getItem(
     "name"
   )} / Score: ${localStorage.getItem("score")}`;
